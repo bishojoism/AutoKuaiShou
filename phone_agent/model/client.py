@@ -72,6 +72,8 @@ class ModelClient:
         in_action_phase = False  # Track if we've entered the action phase
 
         for chunk in stream:
+            print(chunk, end="")
+            
             if len(chunk.choices) == 0:
                 continue
             if chunk.choices[0].delta.content is not None:
@@ -114,6 +116,8 @@ class ModelClient:
                     # Safe to print the buffer
                     print(buffer, end="", flush=True)
                     buffer = ""
+
+        print()
 
         # Parse thinking and action from response
         thinking, action = self._parse_response(raw_content)
