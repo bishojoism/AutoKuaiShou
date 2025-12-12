@@ -19,12 +19,12 @@ def run():
     # 执行任务
     while(True):
         try:
-            print("正在寻找作品……")
+            print("正在搜索……")
             result = agent.run("打开快手搜索找对象，点漏斗图标把筛选条件设置为7日内、未看过。若成功完成任务，仅输出“成功”这两个字。")
             if result !== "成功":
                 raise Exception(result)
         except Exception as e:
-            print("寻找作品失败:", e)
+            print("搜索失败:", e)
             continue
 
 if __name__ == "__main__":
