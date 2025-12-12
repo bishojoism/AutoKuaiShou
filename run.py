@@ -9,7 +9,7 @@ def run():
     # Configure model
     model_config = ModelConfig(
         base_url=env("BASE_URL"),
-        api_key=env("API_KEY")
+        api_key=env("API_KEY"),
         model_name=env("MODEL_NAME"),
     )
     
@@ -23,8 +23,8 @@ def run():
             result = agent.run("打开快手搜索找对象，点漏斗图标把筛选条件设置为7日内、未看过。若成功完成任务，仅输出“成功”这两个字。")
             if result !== "成功":
                 raise Exception(result)
-        except:
-            print("寻找作品失败")
+        except Exception as e:
+            print("寻找作品失败:", e)
             continue
 
 if __name__ == "__main__":
