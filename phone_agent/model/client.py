@@ -76,13 +76,13 @@ class ModelClient:
                 continue
             if chunk.choices[0].delta.content is not None:
                 content = chunk.choices[0].delta.content
+                print(content, end="", flush=True)
                 raw_content += content
 
                 if in_action_phase:
                     # Already in action phase, just accumulate content without printing
                     continue
 
-                print(content, end="", flush=True)
                 buffer += content
 
                 # Check if any marker is fully present in buffer
