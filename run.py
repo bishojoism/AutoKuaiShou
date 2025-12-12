@@ -20,7 +20,9 @@ def run():
     while(True):
         try:
             print("正在寻找作品")
-            agent.run("打开快手搜索找对象，点漏斗图标把筛选条件设置为7日内、未看过。若成功完成任务，仅输出“成功”这两个字。")
+            result = agent.run("打开快手搜索找对象，点漏斗图标把筛选条件设置为7日内、未看过。若成功完成任务，仅输出“成功”这两个字。")
+            if result !== "成功":
+                raise Exception(result)
         except:
             print("寻找作品失败")
             continue
