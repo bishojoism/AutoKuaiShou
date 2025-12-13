@@ -88,6 +88,7 @@ def 用户获取(agent: PhoneAgent):
         进入评论区界面(agent)
         while True:
             if 关注要男朋友的(agent):
+                print('牛逼')
                 agent.action_handler._handle_back(dict(), 0, 0)
                 agent.action_handler._handle_back(dict(), 0, 0)
                 agent.action_handler._handle_back(dict(), 0, 0)
