@@ -120,21 +120,10 @@ def run():
 
     # 执行任务
     while True:
-        if 关注要男朋友的(agent):
-            agent.action_handler._handle_back(dict(), 0, 0)
-            agent.action_handler._handle_back(dict(), 0, 0)
-            agent.action_handler._handle_back(dict(), 0, 0)
-            agent.action_handler._handle_back(dict(), 0, 0)
-            agent.action_handler._handle_back(dict(), 0, 0)
-            agent.action_handler._handle_back(dict(), 0, 0)
-            return
-        翻评论区(agent)
-        if 判断评论区有没有到底(agent):
-            break
-    # agent.action_handler._handle_launch(dict(app="快手"), 0, 0)
-    # 用户获取(agent)
-    # agent.action_handler._handle_back(dict(), 0, 0)
-    # agent.action_handler._handle_back(dict(), 0, 0)
+        agent.action_handler._handle_launch(dict(app="快手"), 0, 0)
+        用户获取(agent)
+        agent.action_handler._handle_back(dict(), 0, 0)
+        agent.action_handler._handle_back(dict(), 0, 0)
 
 
 if __name__ == "__main__":
