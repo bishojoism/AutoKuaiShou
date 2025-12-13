@@ -67,7 +67,8 @@ def 判断评论区有没有到底(agent: PhoneAgent) -> bool:
     for i in result:
         text = i["text"]
         if (
-            "快来发布首条评论吧" in text
+            "0条评论" in text
+            or "快来发布首条评论吧" in text
             or "部分评论被折叠" in text
             or "没有更多评论" in text
         ):
@@ -119,11 +120,10 @@ def run():
     agent = PhoneAgent(model_config, agent_config)
 
     # 执行任务
-    翻评论区(agent)
-    #     agent.action_handler._handle_launch(dict(app="快手"), 0, 0)
-    #     用户获取(agent)
-    #     agent.action_handler._handle_back(dict(), 0, 0)
-    #     agent.action_handler._handle_back(dict(), 0, 0)
+    agent.action_handler._handle_launch(dict(app="快手"), 0, 0)
+    用户获取(agent)
+    agent.action_handler._handle_back(dict(), 0, 0)
+    agent.action_handler._handle_back(dict(), 0, 0)
 
 
 if __name__ == "__main__":
