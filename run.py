@@ -19,17 +19,40 @@ def 进入评论区界面(agent: PhoneAgent):
 
 
 def 关注要男朋友的(agent: PhoneAgent) -> bool:
-    return (
-        agent.run(
-            "评论区找到第一个发“我要这个——男朋友”的绿色表情包（而不是“女朋友”的红色表情包）的人，点她的头像（头像在昵称的左侧）进入她的主页点关注（如果是已经关注过的人或者朋友也忽略，显示“相互关注”也说明已经关注过了）。若已到当日关注上限则仅输出“蒟蒻”，其他什么都不要输出，严格按照这个格式来。警告：滑动的距离尽量小一点，起点y轴比终点y轴大288左右。"
-        )
-        == "蒟蒻"
-    )
+    screenshot = get_screenshot(agent.agent_config.device_id)
+    for i in m.ocr(base64.b64decode(screenshot.base64_data)):
+        if "男朋友" in i["text"]:
+            x, y = i["box"][3]
+            agent.action_handler._handle_tap(
+                dict(element=[x - 100, y - 100]),
+                screenshot.width,
+                screenshot.height,
+                False,
+            )
+            screenshot = get_screenshot(agent.agent_config.device_id)
+            for j in m.ocr(base64.b64decode(screenshot.base64_data)):
+                if j["text"] == "十关注":
+                    agent.action_handler._handle_tap(
+                        dict(element=j["box"][0]),
+                        screenshot.width,
+                        screenshot.height,
+                        False,
+                    )
+                    for k in m.ocr(
+                        base64.b64decode(
+                            get_screenshot(agent.agent_config.device_id).base64_data
+                        )
+                    ):
+                        if k["text"].startswith("关注失败"):
+                            return True
+                    agent.action_handler._handle_back(dict(), 0, 0)
+                    break
+    return False
 
 
 def 翻评论区(agent: PhoneAgent):
     agent.run(
-        "按返回键回到评论区，向下滚动仅一次。警告：滑动的距离尽量小一点，起点y轴比终点y轴大288左右。",
+        "在评论区向下滚动仅一次。警告：滑动的距离尽量小一点，起点y轴比终点y轴大288左右。",
         "翻评论区",
     )
 
@@ -88,11 +111,9 @@ def run():
         api_key=env("API_KEY"),
         model_name=env("MODEL_NAME"),
     )
-    
+
     # Configure agent
-    agent_config = AgentConfig(
-        max_steps=12
-    )
+    agent_config = AgentConfig(max_steps=12)
 
     # 创建 Agent
     agent = PhoneAgent(model_config, agent_config)
