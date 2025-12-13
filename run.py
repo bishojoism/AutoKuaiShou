@@ -9,7 +9,7 @@ import base64
 
 def 进入搜索结果界面(agent: PhoneAgent):
     agent.run(
-        "搜索“评论区找对象”，点漏斗图标把搜索条件设置为7日内、未看过。",
+        "点放大镜图标搜索“评论区找对象”，点漏斗图标把搜索条件设置为近1日。",
         "进入搜索结果界面",
     )
 
@@ -112,7 +112,7 @@ def run():
     )
 
     # Configure agent
-    agent_config = AgentConfig(max_steps=12)
+    agent_config = AgentConfig(max_steps=10)
 
     # 创建 Agent
     agent = PhoneAgent(model_config, agent_config)
@@ -122,7 +122,6 @@ def run():
     用户获取(agent)
     agent.action_handler._handle_back(dict(), 0, 0)
     agent.action_handler._handle_back(dict(), 0, 0)
-
 
 if __name__ == "__main__":
     run()
